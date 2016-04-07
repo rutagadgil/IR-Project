@@ -1,0 +1,7 @@
+/IndexerOutput/*
+/LuceneIndexOutput/*
+/LuceneOutput/*
+/Logs/*
+/BM25Output/*
+/OutputCACMFiles/*
+/target/
