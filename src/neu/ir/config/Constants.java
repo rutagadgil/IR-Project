@@ -8,5 +8,7 @@ public class Constants {
 	public static final String DOCLENGTHS_FILENAME = "numOfTokensPerDoc.txt";
 	public static final String INPUT_DIR = "QueriesInput";
 	public static final String OUTPUT_DIR = "TFIDFOutput";
+	public static final String DOCDIR = "OutputCACMFiles";
 	public static final int TOPDOC_NUMBER = 100;
+	public static final boolean USE_STEMMING = false;
 }

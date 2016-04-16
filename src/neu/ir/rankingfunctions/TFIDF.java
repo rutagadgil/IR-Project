@@ -26,7 +26,7 @@ public class TFIDF implements RankingFunction {
 			double tf = termFrequency(docId,keyword);
 			double idf = IDF(keyword);
 			score += (idf * tf);
-			// log.debug(String.format("For Keyword=%s, DocId=%s (td,idf) = (%s,%s), tf*idf = %s, score = %s", keyword, docId,tf,idf, tf*idf, score));
+			log.debug(String.format("For Keyword=%s, DocId=%s (td,idf) = (%s,%s), tf*idf = %s, score = %s", keyword, docId,tf,idf, tf*idf, score));
 		}
 		return score;
 	}

@@ -1,5 +1,6 @@
 package neu.ir.index;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import neu.ir.common.Keyword;
@@ -36,8 +37,16 @@ public class InvertedIndex {
 	public void setNgram(int ngram) {
 		this.ngram = ngram;
 	}
+	
+	public Map<String,Integer> getDocLengths() {
+		return docLengths;
+	}
+	public void setDocLengths( Map<String,Integer> docLengths ) {
+		this.docLengths = docLengths;
+	}
 
 	private int maxDocId;
 	private int ngram;
+	private Map<String,Integer> docLengths = new HashMap<String,Integer>();
 	private Map<Keyword,Map<String,Integer>> indexes;
 }

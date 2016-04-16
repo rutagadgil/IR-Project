@@ -1,6 +1,9 @@
 package neu.ir.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+
+import neu.ir.index.TokenFilter;
 
 public class Query {
 	public Query() { }
@@ -25,6 +28,25 @@ public class Query {
 
 	public static Query GetQuery( String[] lineParts , int ngram ) {
 		String[] parts = Arrays.copyOfRange(lineParts, 1, lineParts.length);
+		Query query = new Query();
+		query.keywords = new Keyword[parts.length-ngram+1];
+		for( int i=0 ; i<=parts.length-ngram ; i++ ) { // Skip the id integer
+			query.keywords[i] = new Keyword(Arrays.copyOfRange(parts, i,i+ngram));
+		}
+		return query;
+	}
+	private static ArrayList<String> getFilteredTokens(ArrayList<String> tokens , ArrayList<TokenFilter> filters){
+		for(TokenFilter filter : filters){
+			tokens = filter.getFilteredTokens(tokens);
+		}
+		return tokens;
+	}
+	public static Query getQuery( String[] lineParts , int ngram , ArrayList<TokenFilter> filters) {
+		String[] parts = Arrays.copyOfRange(lineParts, 1, lineParts.length);
+		ArrayList<String> tokens = new ArrayList<String>();
+		tokens.addAll(Arrays.asList(parts));
+		tokens = getFilteredTokens(tokens,filters);
+		parts = tokens.toArray(new String[1]);
 		Query query = new Query();
 		query.keywords = new Keyword[parts.length-ngram+1];
 		for( int i=0 ; i<=parts.length-ngram ; i++ ) { // Skip the id integer
