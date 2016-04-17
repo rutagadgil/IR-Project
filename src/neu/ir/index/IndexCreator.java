@@ -21,14 +21,15 @@ public class IndexCreator {
 		System.out.println(ii.getIndexes().size());
 	}
 	
-	public static ArrayList<TokenFilter> getTokenFilters( boolean useStemming ) {
+	public static ArrayList<TokenFilter> getTokenFilters( boolean useStemming , boolean useCommonWords ) {
 		ArrayList<TokenFilter> filters = new ArrayList<TokenFilter>();
 		filters.add(new TokenSplitter("\\s+"));
 		filters.add(new TokenSplitter("[^A-Za-z0-9]")); // only text
 		filters.add(new ToLowerFilter());
-		if( useStemming ) {
+		if( useCommonWords ) {
 			filters.add(new StopwordFilter("common_words"));
-		} else {
+		}
+		if( useCommonWords ) {
 			filters.add(new TokenTrimmerAndEmptyDropper());
 			filters.add(new StemmerFilter());
 		}
@@ -37,7 +38,7 @@ public class IndexCreator {
 	}
 	
 	public static void addHandlers(InvertedIndexGenerator generator) {
-		for(TokenFilter filter : getTokenFilters(false)){ // Doc dir is already stemmed
+		for(TokenFilter filter : getTokenFilters(Constants.USE_STEMMING, Constants.USE_STOPWORDS)){ // Doc dir is already stemmed
 			generator.addTokenFilter(filter);
 		}
 	}

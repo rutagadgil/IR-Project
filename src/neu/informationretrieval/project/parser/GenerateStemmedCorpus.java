@@ -14,7 +14,7 @@ public class GenerateStemmedCorpus {
 			String line = in.nextLine();
 			if( line.startsWith("#") ){
 				if( out != null ) out.close();
-				out = new PrintWriter(Constants.DOCDIR + "/cacm_stemmed_" + line.split("\\s+")[1] );
+				out = new PrintWriter(Constants.DOCDIR + "/cacm_stemmed_" + line.split("\\s+")[1] + ".txt" );
 			} else if( out != null ){
 				out.println(line);
 			}

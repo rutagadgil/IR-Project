@@ -99,7 +99,7 @@ public class CoolGenericEngine {
 	}
 	public static Map<Integer,Query> getQueries(String filename , int ngram) {
 		Map<Integer,Query> queries = new HashMap<Integer,Query>();
-		ArrayList<TokenFilter> filters = IndexCreator.getTokenFilters(Constants.USE_STEMMING);
+		ArrayList<TokenFilter> filters = IndexCreator.getTokenFilters(Constants.USE_STEMMING, Constants.USE_STOPWORDS);
 		Scanner in = null;
 		try {
 			in = new Scanner(new FileInputStream(filename));
