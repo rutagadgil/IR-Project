@@ -26,9 +26,12 @@ public class IndexCreator {
 		filters.add(new TokenSplitter("\\s+"));
 		filters.add(new TokenSplitter("[^A-Za-z0-9]")); // only text
 		filters.add(new ToLowerFilter());
-		filters.add(new StopwordFilter("common_words"));
-		filters.add(new TokenTrimmerAndEmptyDropper());
-		filters.add(new StemmerFilter());
+		if( useStemming ) {
+			filters.add(new StopwordFilter("common_words"));
+		} else {
+			filters.add(new TokenTrimmerAndEmptyDropper());
+			filters.add(new StemmerFilter());
+		}
 		filters.add(new TokenTrimmerAndEmptyDropper());
 		return filters;
 	}
