@@ -38,7 +38,7 @@ public class IndexCreator {
 	}
 	
 	public static void addHandlers(InvertedIndexGenerator generator) {
-		for(TokenFilter filter : getTokenFilters(Constants.USE_STEMMING, Constants.USE_STOPWORDS)){ // Doc dir is already stemmed
+		for(TokenFilter filter : getTokenFilters(false, Constants.USE_STOPWORDS)){ // Doc dir is already stemmed
 			generator.addTokenFilter(filter);
 		}
 	}

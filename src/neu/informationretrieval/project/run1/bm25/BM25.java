@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -18,6 +19,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import neu.ir.config.Constants;
+import neu.ir.index.filters.StemmerFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +88,13 @@ public class BM25 {
 		for (int i = 1; i < queryWords.length ; i++) {
 			temp[count] = queryWords[i];
 			count++;
+		}
+		// Do stemming
+		if( Constants.USE_STEMMING ) {
+			ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(temp));
+			StemmerFilter filter = new StemmerFilter();
+			tokens = filter.getFilteredTokens(tokens);
+			temp = tokens.toArray(new String[tokens.size()]);
 		}
 		return temp;
 	}
