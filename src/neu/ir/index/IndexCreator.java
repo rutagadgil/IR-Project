@@ -29,7 +29,7 @@ public class IndexCreator {
 		if( useCommonWords ) {
 			filters.add(new StopwordFilter("common_words"));
 		}
-		if( useCommonWords ) {
+		if( useStemming ) {
 			filters.add(new TokenTrimmerAndEmptyDropper());
 			filters.add(new StemmerFilter());
 		}

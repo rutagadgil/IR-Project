@@ -2,6 +2,7 @@ package neu.informationretrieval.project.indexer;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,8 +18,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
+
+import neu.ir.config.Constants;
+import neu.ir.index.filters.StopwordFilter;
 
 
 /**
@@ -82,7 +87,7 @@ public class InvertedIndexGenerator {
 
 		resultPath = "IndexerOutput/";
 	}
-
+	
 	public void generateCorpusStopList(){
 		for (Map.Entry<String, Integer> entry : termFrequencyOneGram.entrySet()) {
 			if(standardStopWordList_25.contains(entry.getKey())){
@@ -358,15 +363,27 @@ public class InvertedIndexGenerator {
 			}
 		}
 	}
+	
+	private String[] removeStopwords(String[] words) {
+		StopwordFilter filter = new StopwordFilter("common_words");
+		ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(words));
+		tokens = filter.getFilteredTokens(tokens);
+		return tokens.toArray(new String[tokens.size()]);
+	}
 
 	private String[] createNGrams(int n, String text) {
 		String words[] = new String[0];
 		
 		if (n == 1) {
 			words = text.split(" ");
-			
+			if(Constants.USE_STOPWORDS){
+				words = removeStopwords(words);
+			}
 		} else if (n == 2) {
 			String temp[] = text.split(" ");
+			if(Constants.USE_STOPWORDS){
+				temp = removeStopwords(temp);
+			}
 			List<String> bigrams = new ArrayList<String>();
 			for (int i = 0; i < temp.length - 1; i++) {
 				String bigram = temp[i] + " " + temp[i + 1];
@@ -375,6 +392,9 @@ public class InvertedIndexGenerator {
 			words = bigrams.toArray(new String[0]);
 		} else if (n == 3) {
 			String temp[] = text.split(" ");
+			if(Constants.USE_STOPWORDS){
+				temp = removeStopwords(words);
+			}
 			List<String> trigrams = new ArrayList<String>();
 			for (int i = 0; i < temp.length - 2; i++) {
 				String trigram = temp[i] + " " + temp[i + 1] + " "
