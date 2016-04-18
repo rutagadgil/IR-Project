@@ -1,12 +1,10 @@
-package neu.ir.index.filters;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-
-import neu.ir.index.TokenFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

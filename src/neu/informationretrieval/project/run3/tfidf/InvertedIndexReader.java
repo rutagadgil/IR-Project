@@ -1,21 +1,21 @@
-package neu.ir.index;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import neu.ir.common.Keyword;
-import neu.ir.common.Location;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class CoolInvertedIndexReader {
-	// private Logger log = LoggerFactory.getLogger(CoolInvertedIndexReader.class);
+public class InvertedIndexReader {
+	// private Logger log = LoggerFactory.getLogger(InvertedIndexReader.class);
 	
-	public CoolInvertedIndexReader(int ngram) {
+	public InvertedIndexReader(int ngram) {
 		this.ngram = ngram;
 	}
 	
-	public InvertedIndex ReadInvertedIndex( InputStream inStream ) {
+	public InvertedIndex ReadInvertedIndex( InputStream inStream , Map<Integer,String> docMap ) {
 		Scanner in = new Scanner(inStream);
 		Map<Keyword,Map<String,Integer>> indexes = new HashMap<Keyword,Map<String,Integer>>();
 		
@@ -32,7 +32,7 @@ public class CoolInvertedIndexReader {
 			
 			Map<String,Integer> locations = new HashMap<String,Integer>();
 			while( lineScanner.hasNext() ) {
-				Location loc = getLocation(lineScanner.next(),lineScanner.next());
+				Location loc = getLocation(lineScanner.next(),lineScanner.next(), docMap);
 				if( loc.getTermFrequency() < 0 )
 					System.out.println(loc);
 				locations.put(loc.getDocId(),loc.getTermFrequency());
@@ -46,7 +46,8 @@ public class CoolInvertedIndexReader {
 		return ii;
 	}
 	
-	public Location getLocation(String docId , String freq){
+	public Location getLocation(String docIdHashCode , String freq, Map<Integer,String> docMap){
+		String docId = docMap.get(Integer.parseInt(docIdHashCode));
 		return new Location(docId,Integer.parseInt(freq));
 	}
 	

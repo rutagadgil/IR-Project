@@ -1,11 +1,6 @@
-package neu.ir.rankingfunctions;
+package neu.informationretrieval.project.run3.tfidf;
 
-import java.util.Arrays;
 import java.util.Map;
-
-import neu.ir.common.Keyword;
-import neu.ir.corpus.Corpus;
-import neu.ir.index.InvertedIndex;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +20,7 @@ public class TFIDF implements RankingFunction {
 		for( Keyword keyword : query ) {
 			double tf = termFrequency(docId,keyword);
 			double idf = IDF(keyword);
-			score += (idf * tf);
+			score += (idf * tf)/(corpus.getDocumentLengths().get(docId));
 			log.debug(String.format("For Keyword=%s, DocId=%s (td,idf) = (%s,%s), tf*idf = %s, score = %s", keyword, docId,tf,idf, tf*idf, score));
 		}
 		return score;

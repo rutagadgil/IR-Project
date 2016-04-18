@@ -1,15 +1,8 @@
-package neu.ir.index;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
-import neu.ir.config.Constants;
-import neu.ir.index.filters.StemmerFilter;
-import neu.ir.index.filters.StopwordFilter;
-import neu.ir.index.filters.ToLowerFilter;
-import neu.ir.index.filters.TokenSplitter;
-import neu.ir.index.filters.TokenTrimmerAndEmptyDropper;
 
 public class IndexCreator {
 	public static void main( String[] args ) throws FileNotFoundException {

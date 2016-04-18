@@ -1,4 +1,4 @@
-package neu.ir.util;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.Iterator;
 import java.util.Map;

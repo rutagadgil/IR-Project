@@ -1,4 +1,4 @@
-package neu.ir.common;
+package neu.informationretrieval.project.run3.tfidf;
 
 public class DocumentRank implements Comparable<DocumentRank>{
 	public DocumentRank(){ }

@@ -1,4 +1,4 @@
-package neu.ir.engine;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,15 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-
-import neu.ir.common.DocumentRank;
-import neu.ir.common.Query;
-import neu.ir.config.Constants;
-import neu.ir.corpus.Corpus;
-import neu.ir.index.InvertedIndex;
-import neu.ir.index.InvertedIndexReader;
-import neu.ir.rankingfunctions.RankingFunction;
-import neu.ir.rankingfunctions.TFIDF;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

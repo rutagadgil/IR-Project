@@ -1,9 +1,7 @@
-package neu.ir.index;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import neu.ir.common.Keyword;
 
 public class InvertedIndex {
 	

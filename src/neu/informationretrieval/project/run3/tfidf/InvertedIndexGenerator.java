@@ -1,4 +1,4 @@
-package neu.ir.index;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,8 +9,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import neu.ir.common.Keyword;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;

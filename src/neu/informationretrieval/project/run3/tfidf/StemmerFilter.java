@@ -1,9 +1,6 @@
-package neu.ir.index.filters;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.ArrayList;
-
-import neu.ir.index.TokenFilter;
-import neu.ir.stemming.Stemmer;
 
 public class StemmerFilter implements TokenFilter {
 

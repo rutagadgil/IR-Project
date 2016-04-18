@@ -1,6 +1,5 @@
-package neu.ir.rankingfunctions;
+package neu.informationretrieval.project.run3.tfidf;
 
-import neu.ir.common.Keyword;
 
 public interface RankingFunction {
 	String getName();

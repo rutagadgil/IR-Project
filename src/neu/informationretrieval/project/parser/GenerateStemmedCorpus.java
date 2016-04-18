@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import neu.ir.config.Constants;
+import neu.informationretrieval.project.run3.tfidf.Constants;
 
 public class GenerateStemmedCorpus {
 	public static void main(String[] args) throws Exception {

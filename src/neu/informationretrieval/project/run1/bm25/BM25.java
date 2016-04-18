@@ -20,8 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import neu.ir.config.Constants;
-import neu.ir.index.filters.StemmerFilter;
+import neu.informationretrieval.project.run3.tfidf.Constants;
+import neu.informationretrieval.project.run3.tfidf.StemmerFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package neu.ir.config;
+package neu.informationretrieval.project.run3.tfidf;
 
 public class Constants {
 	public static final String INDEX_OUTPUT_DIR = "IndexerOutput";

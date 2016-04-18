@@ -1,12 +1,7 @@
-package neu.ir.corpus;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.Map;
 import java.util.PriorityQueue;
-
-import neu.ir.common.DocumentRank;
-import neu.ir.common.Keyword;
-import neu.ir.rankingfunctions.RankingFunction;
-import neu.ir.util.PrettyPrintingMap;
 
 public class Corpus {
 	

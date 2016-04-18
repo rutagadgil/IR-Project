@@ -1,10 +1,6 @@
-package neu.ir.rankingfunctions;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.Map;
-
-import neu.ir.common.Keyword;
-import neu.ir.corpus.Corpus;
-import neu.ir.index.InvertedIndex;
 
 public class BM25 implements RankingFunction {
 	public BM25( Corpus corpus , InvertedIndex invertedIndex , double parameterK , double parameterK1 , double parameterB ) {

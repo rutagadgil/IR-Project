@@ -1,4 +1,4 @@
-package neu.ir.common;
+package neu.informationretrieval.project.run3.tfidf;
 
 public class Location {
 	public Location(String docId, int termFrequency) {

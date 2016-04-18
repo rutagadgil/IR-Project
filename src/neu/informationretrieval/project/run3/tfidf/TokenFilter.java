@@ -1,4 +1,4 @@
-package neu.ir.index;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.ArrayList;
 

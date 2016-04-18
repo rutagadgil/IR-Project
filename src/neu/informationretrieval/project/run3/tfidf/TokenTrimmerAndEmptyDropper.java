@@ -1,19 +1,18 @@
-package neu.ir.index.filters;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.ArrayList;
 
-import neu.ir.index.TokenFilter;
-
-public class ToLowerFilter implements TokenFilter {
+public class TokenTrimmerAndEmptyDropper implements TokenFilter {
 
 	@Override
 	public ArrayList<String> getFilteredTokens(ArrayList<String> tokens) {
 		ArrayList<String> newTokens = new ArrayList<String>();
-		
 		for(String token : tokens){
-			newTokens.add(token.toLowerCase());
+			String nt = token.trim();
+			if( !(nt == null || "".equals(nt)) ){
+				newTokens.add(nt);
+			}
 		}
-		
 		return newTokens;
 	}
 

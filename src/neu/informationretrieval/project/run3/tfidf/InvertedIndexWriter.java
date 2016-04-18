@@ -1,9 +1,7 @@
-package neu.ir.index;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.io.PrintWriter;
 import java.util.Map;
-
-import neu.ir.common.Keyword;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

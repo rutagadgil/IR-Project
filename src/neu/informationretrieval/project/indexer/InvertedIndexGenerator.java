@@ -22,8 +22,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
-import neu.ir.config.Constants;
-import neu.ir.index.filters.StopwordFilter;
+import neu.informationretrieval.project.run3.tfidf.Constants;
+import neu.informationretrieval.project.run3.tfidf.StopwordFilter;
 
 
 /**

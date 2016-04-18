@@ -1,9 +1,7 @@
-package neu.ir.index.filters;
+package neu.informationretrieval.project.run3.tfidf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import neu.ir.index.TokenFilter;
 
 public class TokenSplitter implements TokenFilter {
 	public TokenSplitter(String regex) {
