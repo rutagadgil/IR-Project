@@ -18,20 +18,34 @@ public class BM25Runner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		String cacmQuery = "QueriesInput/cacm.query";
-		String fileName = "QueriesInput/queries.txt";
-		
-		QueryParser queryParser = new QueryParser();
-		queryParser.parseQueries(cacmQuery);
-		
-		String line = null;
-		FileReader fileReader;
 		try {
+			
+			String cacmQuery = "QueriesInput/cacm.query";
+			QueryParser queryParser = new QueryParser();
+			queryParser.parseQueries(cacmQuery);
+			
+			// Set output Folder Path
+			String outputFolderPath = null;
+			if (args.length == 0) {
+				outputFolderPath = "BM25Output/";
+			} else {
+				outputFolderPath = args[0];
+			}
+
+			// Set inputFile
+			String fileName = null;
+			if (args.length == 0) {
+				fileName = "QueriesInput/queries.txt";
+			} else {
+				fileName = args[1];
+			}
+
+			String line = null;
+			FileReader fileReader;
 			fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			while ((line = bufferedReader.readLine()) != null) {
-				BM25 bm25 = new BM25();
+				BM25 bm25 = new BM25(outputFolderPath);
 				bm25.rankDocuments(line);
 			}
 			bufferedReader.close();

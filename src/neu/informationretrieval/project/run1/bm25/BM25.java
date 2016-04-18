@@ -42,8 +42,9 @@ public class BM25 {
 	private Map<String, Integer> queryFrequency;
 	private Map<Integer, Double> bm25Scores;
 	final static Logger logger = LoggerFactory.getLogger(BM25.class);
+	private String outputFolderName;
 
-	BM25() {
+	BM25(String outputFolderName) {
 		k1 = 1.2;
 		b = 0.75;
 		k2 = 100;
@@ -53,7 +54,7 @@ public class BM25 {
 		queryFrequency = new HashMap<String, Integer>();
 		AVDL = 0;
 		bm25Scores = new HashMap<Integer, Double>();
-
+		this.outputFolderName = outputFolderName;
 	}
 
 	public void rankDocuments(String query) {
@@ -137,21 +138,10 @@ public class BM25 {
 	}
 
 	private double calculateScore(int ni, int N, int qfi, int fi, double K) {
-		/*logger.info("ni = " + ni);
-		logger.info("N = " + N);
-		logger.info("qfi = " + qfi);
-		logger.info("fi = " + fi);
-		logger.info("K = " + K);
-		*/
 		double term1 = (double) ((N - ni + 0.5) / (ni + 0.5));
-		//logger.info("term1 = " + term1);
 		double term2 = (double) (((k1 + 1) * fi) / (K + fi));
-		//logger.info("term2 = " + term2);
 		double term3 = (double) (((k2 + 1) * qfi) / (k2 + qfi));
-		//logger.info("term3 = " + term3);
-		//logger.info("Multiplication = " + (term1 * term2 * term3));
 		double score = (Math.log(term1)) * term2 * term3;
-		//logger.info("Score = " + score);
 		return score;
 	}
 
@@ -175,7 +165,7 @@ public class BM25 {
 	private void printbm25Scores(int queryNum, String queryWords[]) {
 		// Write to file
 		PrintWriter writer;
-		File file = new File("BM25Output/" + createOutputFileName(queryNum));
+		File file = new File(outputFolderName + createOutputFileName(queryNum));
 		try {
 			writer = new PrintWriter(file, "UTF-8");
 			int count = 0;
