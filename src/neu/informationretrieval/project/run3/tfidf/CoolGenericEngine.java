@@ -44,7 +44,7 @@ public class CoolGenericEngine {
 		corpus.setTotalKeywords(index.getTotalKeywords());
 		corpus.setAverageDocumentLength(getAverageOf(docLengths.values()));
 		
-		readQueriesAndDisplayScore(queries.toString(), corpus, index, new BM25(corpus,index,1.2,100,0.75));
+		readQueriesAndDisplayScore(queries.toString(), corpus, index, new TFIDF(corpus,index));
 		
 		log.info("Ending finished");
 	}
