@@ -1,5 +1,6 @@
 package neu.informationretrieval.project.run3.tfidf;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class TFIDF implements RankingFunction {
 			double tf = termFrequency(docId,keyword);
 			double idf = IDF(keyword);
 			score += (idf * tf)/(corpus.getDocumentLengths().get(docId));
-			//log.debug(String.format("For Keyword=%s, DocId=%s (td,idf) = (%s,%s), tf*idf = %s, score = %s", keyword, docId,tf,idf, tf*idf, score));
+			// log.debug(String.format("For Keyword=%s, DocId=%s (td,idf) = (%s,%s), tf*idf = %s, score = %s", keyword, docId,tf,idf, tf*idf, score));
 		}
 		return score;
 	}
@@ -45,7 +46,7 @@ public class TFIDF implements RankingFunction {
 	
 	private double IDF( Keyword k ) {
 		double N = corpus.getTotalDocuments();
-		double qi = 0.0;
+		double qi = 1.0;
 		if( invertedIndex.getIndexes().containsKey(k)){
 			qi = invertedIndex.getIndexes().get(k).size();
 		}
