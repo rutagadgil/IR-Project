@@ -13,9 +13,8 @@ public class EvaluationRunner {
 		// TODO Auto-generated method stub
 		runs.add(run1);
 		runs.add(run2);
-		Evaluation evaluator = new Evaluation();
+		Evaluator evaluator = new Evaluator();
 		evaluator.evaluate(runs);
-		
 	}
 
 }
