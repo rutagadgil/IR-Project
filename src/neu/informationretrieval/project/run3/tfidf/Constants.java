@@ -1,7 +1,7 @@
 package neu.informationretrieval.project.run3.tfidf;
 
 public class Constants {
-	public static final String INDEX_OUTPUT_DIR = "IndexerOutput";
+	public static final String INDEX_OUTPUT_DIR = "IndexerOutput_stopping";
 	public static final String INDEXES = "invertedIndexOneGram.txt";
 	public static final String QUERIES = "queries.txt";
 	public static final String DOCMAP_FILENAME = "hashCodeToDocIds.txt";

@@ -19,9 +19,9 @@ public class TFIDF implements RankingFunction {
 		double score = 0.0;
 		// log.info(Arrays.toString(query));
 		for( Keyword keyword : query ) {
-			double tf = termFrequency(docId,keyword);
+			double tf = termFrequency(docId,keyword)/(corpus.getDocumentLengths().get(docId));
 			double idf = IDF(keyword);
-			score += (idf * tf)/(corpus.getDocumentLengths().get(docId));
+			score += (idf * tf);
 			// log.debug(String.format("For Keyword=%s, DocId=%s (td,idf) = (%s,%s), tf*idf = %s, score = %s", keyword, docId,tf,idf, tf*idf, score));
 		}
 		return score;
