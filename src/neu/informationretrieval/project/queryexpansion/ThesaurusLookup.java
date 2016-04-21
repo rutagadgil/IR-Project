@@ -75,7 +75,6 @@ class ThesaurusLookup {
 		}
 		expandedQueries.add(stringBuilder.toString());
 		expandedQuery.clear();	
-		
 	}
 
 	// write the expanded query to a file

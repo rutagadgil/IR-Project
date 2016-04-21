@@ -102,21 +102,27 @@ public class InflectionalVariants {
 		}
 		
 		private void findInflectionalVariants(String word){
-			//System.out.println("Finding inflection of word:"+ word);
 			Annotation tokenAnnotation = new Annotation(word);
 			stanfordCoreNLP.annotate(tokenAnnotation);
 			List<CoreMap> list = tokenAnnotation.get(SentencesAnnotation.class);
 			String tokenLemma = list.get(0).get(TokensAnnotation.class).get(0)
 					.get(LemmaAnnotation.class);
-			for (Map.Entry<String, Set<String>> entry : inflectionalVariants.entrySet()) {
+			if(inflectionalVariants.containsKey(tokenLemma)){
+				for(String variant : inflectionalVariants.get(tokenLemma)){
+					expandedQuery.add(variant);
+				}
+			}else{
+				expandedQuery.add(word);
+			}
+			
+			/*for (Map.Entry<String, Set<String>> entry : inflectionalVariants.entrySet()) {
 				if(entry.getKey().equals(tokenLemma)){
 					//System.out.println("Found variants!");
 					for(String variant : entry.getValue()){
 						expandedQuery.add(variant);
 					}
 				}
-			}
-			
+			}*/
 		}
 		
 		// filtering out number from the query words
