@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 import neu.informationretrieval.project.run3.tfidf.Constants;
 
+import neu.informationretrieval.project.run3.tfidf.Constants;
+
 /**
  * @author shruti
  *
@@ -24,14 +26,19 @@ public class BM25Runner {
 	public static void main(String[] args) {
 		try {
 			
-			String cacmQuery = "QueriesInput/cacm.query";
-			QueryParser queryParser = new QueryParser();
-			queryParser.parseQueries(cacmQuery);
+			String cacmQuery = "QueriesInput/cacm_stem.query.txt";
 			
+			if(Constants.USE_STEMMING){
+			StemmedQueryParser qp = new StemmedQueryParser();
+			qp.parseQueries(cacmQuery);
+			} else {
+				QueryParser queryParser = new QueryParser();
+			    queryParser.parseQueries(cacmQuery);
+			}
 			// Set output Folder Path
 			String outputFolderPath = null;
 			if (args.length == 0) {
-				outputFolderPath = "BM25Output/";
+				outputFolderPath = "BM25Output_stemming/";
 			} else {
 				outputFolderPath = args[0];
 			}
@@ -39,7 +46,7 @@ public class BM25Runner {
 			// Set inputFile
 			String fileName = null;
 			if (args.length == 0) {
-				fileName = "QueriesInput/queries.txt";
+				fileName = "QueriesInput/cacm_stem_parser.query.txt";
 			} else {
 				fileName = args[1];
 			}
