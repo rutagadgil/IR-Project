@@ -31,7 +31,7 @@ public class PrecisionRecall {
 	/*
 	 * parses every file to generate precision recall values 
 	 */
-	public void calculatePrecisionRecall() {
+	public HashMap<Integer, ArrayList<PR>> calculatePrecisionRecall() {
 		// TODO Auto-generated method stub
 		try{
 			File dir = new File(runDirectory);
@@ -53,6 +53,7 @@ public class PrecisionRecall {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		return precisionRecall;
 	}
 	
 	/*

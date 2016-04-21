@@ -1,10 +1,9 @@
 package neu.informationretrieval.project.run2.lucene;
 import java.io.File;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -24,7 +23,7 @@ import org.apache.lucene.util.Version;
 public class LuceneQueryProcessor {
 	
 	private String outputLocation;
-	private static Analyzer sAnalyzer = new StandardAnalyzer(Version.LUCENE_47);
+	private Analyzer sAnalyzer;
 
 	/**
 	 * Constructor
@@ -34,8 +33,9 @@ public class LuceneQueryProcessor {
 	 * @throws java.io.IOException
 	 *             when exception creating index.
 	 */
-	LuceneQueryProcessor() throws IOException {
+	LuceneQueryProcessor(Analyzer analyzer) throws IOException {
 		outputLocation = "LuceneIndexOutput";
+		sAnalyzer = analyzer;
 	}
 
 	public void searchDocuments(String query) {

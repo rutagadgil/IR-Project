@@ -3,13 +3,13 @@ package neu.informationretrieval.project.evaluation;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import neu.informationretrieval.project.run1.bm25.IO_Operations;
 
 public class Evaluator {
 	File cacmRelevanceFile;
 	IO_Operations io;
+	HashMap<Integer, ArrayList<PR>> precisionRecallValues;
 	HashMap<Integer, ArrayList<String>> relevanceJudgements = new HashMap<Integer, ArrayList<String>>(); 
 	Evaluator(){
 		io = new IO_Operations();
@@ -34,27 +34,6 @@ public class Evaluator {
 				relevanceJudgements.put(queryID, relevantDocs);
 			}
 		}
-		//printInvertedHashMap();
-	}
-
-	public void printInvertedHashMap() {
-		// TODO Auto-generated method stub
-
-		Iterator<?> itr = relevanceJudgements.entrySet().iterator();
-		while(itr.hasNext()){
-			@SuppressWarnings("rawtypes")
-			HashMap.Entry pair = (HashMap.Entry)itr.next();
-			System.out.print(pair.getKey() + " ");
-			@SuppressWarnings("unchecked")
-			ArrayList<String> postings = (ArrayList<String>) pair.getValue();
-			Iterator<String> postingITR = postings.iterator();
-			while(postingITR.hasNext()){
-				String p = (String) postingITR.next();
-				System.out.print(p + " ");
-			}
-			System.out.println();
-		}
-		System.out.println("size: " + relevanceJudgements.size());
 	}
 
 	public void evaluate(ArrayList<String> runs) {
@@ -63,8 +42,14 @@ public class Evaluator {
 		for(String run : runs){
 			MAP map = new MAP(run, relevanceJudgements);
 			map.calculateMAP();
+			MRR mrr = new MRR(run, relevanceJudgements);
+			mrr.calculateMRR();
 			PrecisionRecall precisionRecall = new PrecisionRecall(run, relevanceJudgements);
-			precisionRecall.calculatePrecisionRecall();
+			precisionRecallValues = precisionRecall.calculatePrecisionRecall();
+			System.out.println("Precision at K:");
+			PrecisionAtK pk = new PrecisionAtK(run, relevanceJudgements);
+			pk.calculatePK(precisionRecallValues);
+			
 		}
 	}
 }
