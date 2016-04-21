@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
@@ -23,14 +22,13 @@ public class LueceneIndexer {
 	private String inputFileLocation;
 	private IndexWriter writer;
 	private String outputLocation;
-	private static Analyzer sAnalyzer = new SimpleAnalyzer(Version.LUCENE_47);
 	
-	LueceneIndexer() throws IOException{
+	LueceneIndexer( Analyzer analyzer ) throws IOException{
 		inputFileLocation = "OutputCACMFiles";
 		outputLocation = "LuceneIndexOutput";
 		FSDirectory dir = FSDirectory.open(new File(outputLocation));
 		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, 
-				sAnalyzer);
+				analyzer);
 		writer = new IndexWriter(dir, config);
 	}
 	
