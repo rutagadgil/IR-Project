@@ -46,7 +46,9 @@ public class BM25Runner {
 			} else {
 				fileName = args[1];
 			}
-
+			
+			System.out.println(fileName);
+			System.out.println(outputFolderPath);
 			String line = null;
 			FileReader fileReader;
 			fileReader = new FileReader(fileName);
