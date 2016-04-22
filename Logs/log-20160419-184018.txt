@@ -1,7 +1,0 @@
-18:40:19.020 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
-18:40:19.196 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
-18:40:19.319 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
-18:40:19.413 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
-18:40:19.505 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
-18:40:19.587 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
-18:40:19.675 [main] INFO  n.i.project.run1.bm25.BM25 - AVDL = 120.54588014981273
