@@ -355,7 +355,7 @@ Rabin,M.
  Articles describing the relationship between data types and concurrency
 (e.g. what is the type of a process?  when is a synchronization attempt 
 between two processes "type correct"?  in a message-passing system is there
-any notion of the types of messages?--i.e. any way to check that the sender
+any notion of the types of messages?-i.e. any way to check that the sender
 of the message and the receiver are both treating the bit stream as some
 particular type)
 
@@ -379,7 +379,7 @@ contexts in which it is used.)
  What does type compatibility mean in languages that allow programmer
 defined types?  (You might want to restrict this to "extensible" languages
 that allow definition of abstract data types or programmer-supplied
-definitions of operators like *, +.)
+definitions of operators like *, .)
 
 
 </DOC>

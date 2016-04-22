@@ -11,8 +11,8 @@ import org.apache.lucene.analysis.util.WordlistLoader;
 import org.apache.lucene.util.Version;
 
 public class LuceneWithStopwords {
-	public static void main(String[] args) throws Exception{
-		Reader reader = new InputStreamReader(new FileInputStream("common_words"));
-		LuceneRunner.Run(new StandardAnalyzer(Version.LUCENE_47, WordlistLoader.getWordSet(reader, Version.LUCENE_47)));
+	public static void main(String[] args) throws Exception {
+		String arg[] = {"Run7Output"};
+		LuceneRunner.main(arg);
 	}
 }

@@ -24,6 +24,7 @@ public class LuceneQueryProcessor {
 	
 	private String outputLocation;
 	private Analyzer sAnalyzer;
+	private String resultLocation;
 
 	/**
 	 * Constructor
@@ -36,9 +37,12 @@ public class LuceneQueryProcessor {
 	LuceneQueryProcessor(Analyzer analyzer) throws IOException {
 		outputLocation = "LuceneIndexOutput";
 		sAnalyzer = analyzer;
+		resultLocation = "";
 	}
 
-	public void searchDocuments(String query) {
+	public void searchDocuments(String query, String outputFolder) {
+		this.resultLocation = outputFolder;
+		
 		query = query.trim();
 		query = query.replaceAll("\\s+", " ");
 		
@@ -64,7 +68,7 @@ public class LuceneQueryProcessor {
 			ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
 			PrintWriter writer;
-			File file = new File("LuceneOutput_stopping/"+createOutputFileName(queryNumber));
+			File file = new File(resultLocation + "/"+createOutputFileName(queryNumber));
 			writer = new PrintWriter(file, "UTF-8");
 			System.out.println("Found " + hits.length + " hits.");
 			for (int i = 0; i < hits.length; ++i) {
