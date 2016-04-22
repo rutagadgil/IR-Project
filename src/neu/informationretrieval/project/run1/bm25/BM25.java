@@ -44,6 +44,10 @@ public class BM25 {
 	final static Logger logger = LoggerFactory.getLogger(BM25.class);
 	private String outputFolderName;
 
+	private IO_Operations io;
+	private HashMap<Integer, ArrayList<String>> relevanceJudgements = new HashMap<Integer, ArrayList<String>>(); 
+
+
 	BM25(String outputFolderName) {
 		k1 = 1.2;
 		b = 0.75;
@@ -55,28 +59,58 @@ public class BM25 {
 		AVDL = 0;
 		bm25Scores = new HashMap<Integer, Double>();
 		this.outputFolderName = outputFolderName;
+		io = new IO_Operations();
+
 	}
 
 	public void rankDocuments(String query) {
+		readRelevantJudgements();
 		readAllFilesInHashMaps();
 		calculateAVDL();
 		calculateBM25PageRanksForQuery(query);
 	}
 
+	private void readRelevantJudgements() {
+		// TODO Auto-generated method stub
+
+		File cacmRelevanceFile = new File("cacm.rel");
+		String content = io.readFile(cacmRelevanceFile);
+		String[] relevance = content.split("\\n");
+
+		for(String rel : relevance){
+
+			String[] judgements = rel.split(" ");
+			int queryID = Integer.parseInt(judgements[0]);
+			if(relevanceJudgements.containsKey(queryID)){
+				ArrayList<String> relevantDocs = relevanceJudgements.get(queryID);
+				String docID =judgements[2].replaceAll("-", "");
+				docID = docID + ".txt";
+				relevantDocs.add(docID);
+				relevanceJudgements.put(queryID, relevantDocs);
+			}
+			else{
+				ArrayList<String> relevantDocs = new ArrayList<String>();
+				String docID =judgements[2].replaceAll("-", "");
+				docID = docID + ".txt";
+				relevantDocs.add(docID);
+				relevanceJudgements.put(queryID, relevantDocs);
+			}
+		}
+	}
 	private void calculateBM25PageRanksForQuery(String query) {
 		// remove extra white spaces in the query
 		query = query.trim();
 		query = query.replaceAll("\\s+", " ");
-		
+
 		String queryWords[] = query.split(" ");
 
 		int queryNumber = Integer.parseInt(queryWords[0]);
-		
+
 		queryWords = filterQueryWords(queryWords);
 		calculateQueryFrequency(queryWords);
-		
+
 		for (int i = 0; i < queryWords.length; i++) {
-			calculateBM25ScorePerTerm(queryWords[i]);
+			calculateBM25ScorePerTerm(queryNumber, queryWords[i]);
 		}
 		queryFrequency.clear();
 		bm25Scores = sortByValue(bm25Scores);
@@ -101,7 +135,7 @@ public class BM25 {
 		return temp;
 	}
 
-	private void calculateBM25ScorePerTerm(String term) {
+	private void calculateBM25ScorePerTerm(int queryNumber, String term) {
 		//logger.info("Processing term "+term);
 		List<Index> termInvertedIndex = new ArrayList<Index>();
 		termInvertedIndex = invertedIndex.get(term);
@@ -109,17 +143,46 @@ public class BM25 {
 			int ni = termInvertedIndex.size();
 			int N = numOfTokensPerDoc.size();
 			int qfi = queryFrequency.get(term);
+			int ri = 0;
+			int R = 0;
+
+			ArrayList<String> relevantDocs = relevanceJudgements.get(queryNumber);
+
+			if(relevantDocs!=null){
+				R = relevantDocs.size();
+			}
+
+			ri = calculateRi(term, relevantDocs);
+
 			for (Index index : termInvertedIndex) {
 				//logger.info("Processing doc: "
-					//	+ hasCodeDocIds.get(index.getDocId()));
+				//	+ hasCodeDocIds.get(index.getDocId()));
 				int docLength = numOfTokensPerDoc.get(index.getDocId());
 				int fi = index.getTermFrequency();
 				populatebm25Scores(index.getDocId(),
-						calculateScore(ni, N, qfi, fi, calculateK(docLength)));
+						calculateScore(ri, R, ni, N, qfi, fi, calculateK(docLength)));
 			}
 		}
 	}
-
+	
+	private int calculateRi(String term, ArrayList<String> relevantDocs) {
+		// TODO Auto-generated method stub
+		int ri = 0;
+		List<Index> termInvertedIndex = new ArrayList<Index>();
+		termInvertedIndex = invertedIndex.get(term);
+		for (Index index : termInvertedIndex) {
+			int docID = index.getDocId();
+			String docName = hasCodeDocIds.get(docID);
+			if(relevantDocs != null){
+				if(relevantDocs.contains(docName)){
+					ri++;
+				}
+			}
+		}
+		System.out.println(term + " " + ri);
+		return ri;
+	}
+	
 	private void populatebm25Scores(int docId, double score) {
 		if (bm25Scores.containsKey(docId)) {
 			bm25Scores.put(docId, bm25Scores.get(docId) + score);
@@ -138,8 +201,8 @@ public class BM25 {
 		return K;
 	}
 
-	private double calculateScore(int ni, int N, int qfi, int fi, double K) {
-		double term1 = (double) ((N - ni + 0.5) / (ni + 0.5));
+	private double calculateScore(int ri, int R, int ni, int N, int qfi, int fi, double K) {
+		double term1 = (double) ((ri + 0.5)/(R - ri + 0.5))/((ni - ri + 0.5)/(N - ni - R + ri + 0.5));
 		double term2 = (double) (((k1 + 1) * fi) / (K + fi));
 		double term3 = (double) (((k2 + 1) * qfi) / (k2 + qfi));
 		double score = (Math.log(term1)) * term2 * term3;
@@ -215,7 +278,7 @@ public class BM25 {
 
 		AVDL = ((double) countOfAllTokensInAllDocuments)
 				/ ((double) numOfTokensPerDoc.size());
-		
+
 		logger.info("AVDL = " + AVDL);
 	}
 

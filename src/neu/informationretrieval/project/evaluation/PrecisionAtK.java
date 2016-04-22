@@ -68,9 +68,9 @@ public class PrecisionAtK {
 		pAt20 = pAt20 / precisionAt20.size();
 		
 		StringBuilder pAtK = new StringBuilder();
-		pAtK.append(Double.toString(pAt5));
+		pAtK.append("Precision at rank K = 5: " + Double.toString(pAt5));
 		pAtK.append(System.getProperty("line.separator"));
-		pAtK.append(Double.toString(pAt20));
+		pAtK.append("Precision at rank K = 20: " + Double.toString(pAt20));
 		
 		io.writeToFile(outputPath, outputFileName, pAtK.toString());
 		//System.out.println("run: " + runDirectory + " MAP: " + meanAveragePrecision);

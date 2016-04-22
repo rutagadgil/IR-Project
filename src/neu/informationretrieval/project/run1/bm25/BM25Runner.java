@@ -4,13 +4,9 @@
 package neu.informationretrieval.project.run1.bm25;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
-
-import neu.informationretrieval.project.run3.tfidf.Constants;
 
 import neu.informationretrieval.project.run3.tfidf.Constants;
 
