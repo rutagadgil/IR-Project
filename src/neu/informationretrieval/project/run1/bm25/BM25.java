@@ -65,7 +65,11 @@ public class BM25 {
 
 	private void calculateBM25PageRanksForQuery(String query) {
 		// remove extra white spaces in the query
-		String queryWords[] = query.trim().split("\\s+");
+		query = query.trim();
+		query = query.replaceAll("\\s+", " ");
+		
+		String queryWords[] = query.split(" ");
+
 		int queryNumber = Integer.parseInt(queryWords[0]);
 		
 		queryWords = filterQueryWords(queryWords);

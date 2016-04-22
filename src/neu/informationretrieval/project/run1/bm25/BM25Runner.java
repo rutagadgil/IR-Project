@@ -25,21 +25,20 @@ public class BM25Runner {
 	 */
 	public static void main(String[] args) {
 		try {
-			
+
 			String cacmQuery = "QueriesInput/cacm.query";
-			QueryParser queryParser = new QueryParser();
-			queryParser.parseQueries(cacmQuery);
-			
+			if (Constants.USE_STEMMING) {
+				StemmedQueryParser qp = new StemmedQueryParser();
+				qp.parseQueries(cacmQuery);
+			} else {
+				QueryParser queryParser = new QueryParser();
+				queryParser.parseQueries(cacmQuery);
+			}
+
 			// Set output Folder Path
 			String outputFolderPath = null;
 			if (args.length == 0) {
-				if(Constants.USE_STEMMING){
-					outputFolderPath = "BM25Output_Stemming/";
-				} else if( Constants.USE_STOPWORDS ) {
-					outputFolderPath = "BM25Output_stopping";
-				} else {
-					outputFolderPath = "BM25Output/";
-				}
+				outputFolderPath = "BM25Output_stopping/";
 			} else {
 				outputFolderPath = args[0];
 			}
@@ -51,30 +50,17 @@ public class BM25Runner {
 			} else {
 				fileName = args[1];
 			}
-			
+
 			String line = null;
 			FileReader fileReader;
 			fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			int counter = 0;
 			while ((line = bufferedReader.readLine()) != null) {
 				BM25 bm25 = new BM25(outputFolderPath);
 				bm25.rankDocuments(line);
-				counter++;
 			}
 			bufferedReader.close();
-			if( Constants.USE_STEMMING ){ 
-				// Add extra queries from cacm_stem.query.txt if used stemming
-				FileInputStream stream = new FileInputStream("cacm_stem.query.txt");
-				Scanner in = new Scanner(stream);
-				while( in.hasNext() ) {
-					String stemQuery = in.nextLine();
-					BM25 bm25 = new BM25(outputFolderPath);
-					bm25.rankDocuments("" + counter + " " + stemQuery);
-					counter++;
-				}
-				in.close();
-			}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
