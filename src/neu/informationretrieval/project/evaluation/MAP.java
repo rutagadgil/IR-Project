@@ -9,20 +9,23 @@ import neu.informationretrieval.project.run1.bm25.IO_Operations;
 
 public class MAP {
 
-	String outputPath = "EvaluationOutput/MAP/";
-	String outputFileName;
+	String outputPath = "EvaluationOutput/";
+	String outputFileName = "MAP";
 	
 	IO_Operations io = new IO_Operations();
 	HashMap<Integer, ArrayList<String>> relevanceJudgements = new HashMap<Integer, ArrayList<String>>();
 	ArrayList<Double> averagePrecision = new ArrayList<Double>();
 	double meanAveragePrecision = 0;
 	String runDirectory;
+	String runName;
 	
 	public MAP(String runDirectory, HashMap<Integer, ArrayList<String>> relevanceJudgements) {
 		// TODO Auto-generated constructor stub
 		this.relevanceJudgements = relevanceJudgements;
 		this.runDirectory = runDirectory;
-		this.outputFileName = runDirectory.replace("/", "");
+		
+		this.runName = runDirectory.replace("/", "  ");
+		this.runName = runDirectory.replace("Output", "");
 	}
 
 	public void calculateMAP() {
@@ -90,8 +93,9 @@ public class MAP {
 			meanAveragePrecision = meanAveragePrecision + ap;
 		}
 		meanAveragePrecision = meanAveragePrecision / averagePrecision.size();
-		String MAP = Double.toString(meanAveragePrecision);
-		io.writeToFile(outputPath, outputFileName, MAP);
+		String MAP = runName + " " + Double.toString(meanAveragePrecision) + System.getProperty("line.separator");
+		io.appendToFile(outputPath, outputFileName, MAP);
+		
 		//System.out.println("run: " + runDirectory + " MAP: " + meanAveragePrecision);
 	}
 

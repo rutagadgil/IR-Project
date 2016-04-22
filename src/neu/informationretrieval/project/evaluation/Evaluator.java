@@ -34,6 +34,20 @@ public class Evaluator {
 				relevanceJudgements.put(queryID, relevantDocs);
 			}
 		}
+
+		try{
+			File file = new File("EvaluationOutput/MAP.txt");
+			if(file.exists()){
+				file.delete();
+			}
+			File file1 = new File("EvaluationOutput/MRR.txt");
+			if(file1.exists()){
+				file1.delete();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void evaluate(ArrayList<String> runs) {
@@ -49,7 +63,7 @@ public class Evaluator {
 			System.out.println("Precision at K:");
 			PrecisionAtK pk = new PrecisionAtK(run, relevanceJudgements);
 			pk.calculatePK(precisionRecallValues);
-			
+
 		}
 	}
 }

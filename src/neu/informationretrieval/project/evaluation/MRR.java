@@ -8,19 +8,24 @@ import java.util.HashMap;
 import neu.informationretrieval.project.run1.bm25.IO_Operations;
 
 public class MRR {
-	String outputPath = "EvaluationOutput/MRR/";
-	String outputFileName;
+	String outputPath = "EvaluationOutput/";
+	String outputFileName = "MRR";
 	
 	IO_Operations io = new IO_Operations();
 	HashMap<Integer, ArrayList<String>> relevanceJudgements = new HashMap<Integer, ArrayList<String>>();
 	ArrayList<Double> reciprocalRanks = new ArrayList<Double>();
 	double meanReciprocalRank = 0;
 	String runDirectory;
+	String runName;
+	
 	public MRR(String runDirectory, HashMap<Integer, ArrayList<String>> relevanceJudgements) {
 		// TODO Auto-generated constructor stub
 		this.relevanceJudgements = relevanceJudgements;
 		this.runDirectory = runDirectory;
-		this.outputFileName = runDirectory.replace("/", "");
+		//this.outputFileName = runDirectory.replace("/", "");
+		
+		this.runName = runDirectory.replace("/", "  ");
+		this.runName = runDirectory.replace("Output", "");
 	}
 
 	public void calculateMRR() {
@@ -80,8 +85,8 @@ public class MRR {
 			meanReciprocalRank = meanReciprocalRank + mrr;
 		}
 		meanReciprocalRank = meanReciprocalRank / reciprocalRanks.size();
-		String MRR = Double.toString(meanReciprocalRank);
-		io.writeToFile(outputPath, outputFileName, MRR);
+		String MRR = runName + " " + Double.toString(meanReciprocalRank) + System.getProperty("line.separator");
+		io.appendToFile(outputPath, outputFileName, MRR);
 		//System.out.println("run: " + runDirectory + " MAP: " + meanAveragePrecision);
 	}
 }

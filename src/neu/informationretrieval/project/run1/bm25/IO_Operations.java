@@ -50,5 +50,21 @@ public class IO_Operations {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	
+	}
+	public void appendToFile(String path, String filename, String content) {
+		// TODO Auto-generated method stub
+		
+		try{
+			File file = new File(path + filename + ".txt");
+			System.out.println(file.getName());
+			fw = new FileWriter(file, true);
+			bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

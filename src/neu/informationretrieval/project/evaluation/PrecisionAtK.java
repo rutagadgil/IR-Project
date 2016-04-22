@@ -7,7 +7,8 @@ import java.util.Iterator;
 import neu.informationretrieval.project.run1.bm25.IO_Operations;
 
 public class PrecisionAtK {
-	String outputPath = "EvaluationOutput/P@K/";
+	String outputPath5 = "EvaluationOutput/P@5/";
+	String outputPath20 = "EvaluationOutput/P@20/";
 	String outputFileName;
 	int K5 = 5;
 	int K20 = 20;
@@ -29,6 +30,9 @@ public class PrecisionAtK {
 
 	public void calculatePK(HashMap<Integer, ArrayList<PR>> precisionRecallValues) {
 		// TODO Auto-generated method stub
+		StringBuilder sbPrecisionAt5 = new StringBuilder();
+		StringBuilder sbPrecisionAt20 = new StringBuilder();
+		
 		Iterator<?> itr = precisionRecallValues.entrySet().iterator();
 		while(itr.hasNext()){
 			@SuppressWarnings("rawtypes")
@@ -43,37 +47,22 @@ public class PrecisionAtK {
 			while(prsITR.hasNext()){
 				i++;
 				PR pr = (PR) prsITR.next();
-				if(i==K5){
+				if(i == K5){
 					//System.out.println("QueryID: " + pair.getKey() + " Precision at 5: " + pr.getPrecision() + "|");
-					precisionAt5.add(pr.getPrecision());
+					sbPrecisionAt5.append(pair.getKey() + " " + pr.getPrecision());
+					sbPrecisionAt5.append(System.getProperty("line.separator"));
+					//precisionAt5.add(pr.getPrecision());
 				}
-				if(i==K20){
+				if(i == K20){
 					//System.out.println("QueryID: " + pair.getKey() + " Precision at 20: " + pr.getPrecision() + "|");
-					precisionAt20.add(pr.getPrecision());
+					//precisionAt20.add(pr.getPrecision());
+					sbPrecisionAt20.append(pair.getKey() + " " + pr.getPrecision());
+					sbPrecisionAt20.append(System.getProperty("line.separator"));
 				}
 			}
 		}
-		writePrecisionAtKOutput();
+		io.writeToFile(outputPath5, outputFileName, sbPrecisionAt5.toString());
+		io.writeToFile(outputPath20, outputFileName, sbPrecisionAt20.toString());
 	}
 	
-	private void writePrecisionAtKOutput() {
-		// TODO Auto-generated method stub
-		for(double precision : precisionAt5){
-			pAt5 = pAt5 + precision;
-		}
-		for(double precision : precisionAt20){
-			pAt20 = pAt20 + precision;
-		}
-		pAt5 = pAt5 / precisionAt5.size();
-		pAt20 = pAt20 / precisionAt20.size();
-		
-		StringBuilder pAtK = new StringBuilder();
-		pAtK.append("Precision at rank K = 5: " + Double.toString(pAt5));
-		pAtK.append(System.getProperty("line.separator"));
-		pAtK.append("Precision at rank K = 20: " + Double.toString(pAt20));
-		
-		io.writeToFile(outputPath, outputFileName, pAtK.toString());
-		//System.out.println("run: " + runDirectory + " MAP: " + meanAveragePrecision);
-	}
-
 }
