@@ -26,11 +26,13 @@ public class InflectionalVariants {
 		private List<String> expandedQuery;
 		private List<String> expandedQueries;
 		private StanfordCoreNLP stanfordCoreNLP;
+		private List<String> corpusImpWords;
 		
-		InflectionalVariants(){
+		InflectionalVariants(List<String> corpusImpWords){
 			inflectionalVariants = new HashMap<String, Set<String>>();
 			expandedQuery = new ArrayList<String>();
 			expandedQueries = new ArrayList<String>();
+			this.corpusImpWords = corpusImpWords;
 			stanfordCoreNLP = new StanfordCoreNLP(new Properties() {
 				{
 					setProperty("annotators", "tokenize,ssplit,pos,lemma");
@@ -87,7 +89,11 @@ public class InflectionalVariants {
 
 			queryWords = filterQueryWords(queryWords);
 			for (String queryWord : queryWords) {
-				findInflectionalVariants(queryWord);
+				if(corpusImpWords.contains(queryWord)){
+					findInflectionalVariants(queryWord);
+				}else{
+					expandedQuery.add(queryWord);
+				}
 			}
 			
 			StringBuilder stringBuilder = new StringBuilder();
