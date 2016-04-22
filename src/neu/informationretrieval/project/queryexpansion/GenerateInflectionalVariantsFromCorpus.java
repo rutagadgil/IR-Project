@@ -2,6 +2,7 @@ package neu.informationretrieval.project.queryexpansion;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,7 +42,13 @@ public class GenerateInflectionalVariantsFromCorpus {
 	}
 
 	private void iterateThroughCorpus() {
-		File[] listOfFiles = corpusFolderPath.listFiles();
+		FileFilter filter = new FileFilter() {
+			@Override
+			public boolean accept(File pathname) {
+				return !pathname.isHidden();
+			}
+		};
+		File[] listOfFiles = corpusFolderPath.listFiles(filter);
 		for (File file : listOfFiles) {
 			if (file.isFile()) {
 				processFileForWordLemma(corpusFolderPath + "/" + file.getName());

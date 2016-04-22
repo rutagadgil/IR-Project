@@ -83,6 +83,8 @@ public class GenerateCorpus {
 				text = text + " " + para.text();
 			}
 
+			text = ignoreTablesAtEnd(text);
+			
 			// case folding
 			text = text.toLowerCase();
 
@@ -115,6 +117,33 @@ public class GenerateCorpus {
 			e.printStackTrace();
 		}
 	}
+	
+	private String ignoreTablesAtEnd(String text) {
+		// TODO Auto-generated method stub
+		text = text.replaceAll("\\s+", " ");
+		StringBuilder sb = new StringBuilder();
+		String[] textTokens = text.split(" ");
+		
+		for(int i = 0; i < textTokens.length; i++){
+			sb.append(textTokens[i] + " ");
+			//System.out.println("Processing token : "+textTokens[i]);
+			if(textTokens[i].matches("^CA[0-9]{6}$")){
+				if(textTokens[i+1].matches("^[A-Z][A-Z]$")){
+					sb.append(textTokens[i+1] + " ");
+					sb.append(textTokens[i+2] + " ");
+					sb.append(textTokens[i+3] + " ");
+					sb.append(textTokens[i+4] + " ");
+					sb.append(textTokens[i+5] + " ");
+					sb.append(textTokens[i+6] + " ");
+					System.out.println("ignoring tables at the end");
+					break;
+				}
+			}
+		}
+		//System.out.println(sb.toString());
+		return sb.toString();
+	}
+
 
 	/**
 	 * @param text : text in the form of String
