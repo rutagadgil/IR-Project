@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.lucene.wordnet.SynonymMap;
 
@@ -20,11 +21,13 @@ class ThesaurusLookup {
 	private InputStream wordNetInputStream;
 	private ArrayList<String> expandedQuery;
 	private ArrayList<String> expandedQueries;
+	private List<String> corpusImportantWords;
 
-	public ThesaurusLookup() {
+	public ThesaurusLookup(List<String> corpusImportantWords) {
 		wordNetDBFilePath = new File("WordNetInputFile/wn_s.pl");
 		expandedQuery = new ArrayList<String>();
 		expandedQueries = new ArrayList<String>();
+		this.corpusImportantWords = corpusImportantWords;
 		try {
 			wordNetInputStream = new FileInputStream(wordNetDBFilePath);
 			synonymMap = new SynonymMap(wordNetInputStream);
@@ -64,7 +67,11 @@ class ThesaurusLookup {
 
 		queryWords = filterQueryWords(queryWords);
 		for (String queryWord : queryWords) {
-			lookupWord(queryWord);
+			if(corpusImportantWords.contains(queryWord)){
+				lookupWord(queryWord);
+			}else{
+				expandedQuery.add(queryWord);
+			}
 		}
 		
 		StringBuilder stringBuilder = new StringBuilder();
