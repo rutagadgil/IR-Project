@@ -8,7 +8,7 @@ public class EvaluationRunner {
 	static String run2 = "Run2Output/";
 	static String run4 = "Run4Output/";
 	static String run5 = "Run5Output/";
-	static String run3 = "BM25Output_stemming/";
+	static String run3 = "TFIDF_engine/";
 	static String run7 = "Run7Output/";
 	
 	static ArrayList<String> runs = new ArrayList<String>();
