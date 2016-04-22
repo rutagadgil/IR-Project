@@ -1,2 +1,0 @@
-Precision at rank K = 5: 0.40064102564102566
-Precision at rank K = 20: 0.25091575091575086
