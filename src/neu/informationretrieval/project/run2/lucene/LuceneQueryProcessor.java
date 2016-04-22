@@ -64,7 +64,7 @@ public class LuceneQueryProcessor {
 			ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
 			PrintWriter writer;
-			File file = new File("LuceneOutput/"+createOutputFileName(queryNumber));
+			File file = new File("LuceneOutput_stopping/"+createOutputFileName(queryNumber));
 			writer = new PrintWriter(file, "UTF-8");
 			System.out.println("Found " + hits.length + " hits.");
 			for (int i = 0; i < hits.length; ++i) {

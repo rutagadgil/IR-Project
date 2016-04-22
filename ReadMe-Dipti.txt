@@ -34,3 +34,14 @@ We have appended the query number to the original cacm_stem.query.txt file and t
     and set the cacmQuery string to "QueriesInput/cacm_stem.query.txt" and query input file name as  fileName = "QueriesInput/cacm_stem_parsed.query.txt" and save and then run by right clicking -> run as -> java application. 
 6) The output for the stemming run can be found under the BM25Output_stemming directory 
 
+Following are the steps to perform the seventh run( Lucene with stopping)
+
+1) First clear the directories OutputCACMFiles, LuceneIndexOutput
+2) Recreate fresh directories named OutputCACMFiles, LuceneIndexOutput and LuceneOutput_stopping
+3) Run GenerateCorpusRunner.java ( can be found under neu.informationretrieval.project.parser) -> by right clicking -> run as -> java application. 
+4) Click Refresh 
+5) Change the output directory name to LuceneOutput_stopping at line no. 67 in LuceneQueryProcessor.java( can be found under neu.informationretrieval.project.run2.lucene package) and save the changes made.
+6) Run LuceneWithStopwords.java ( can be found under neu.informationretrieval.project.run7.lucenewithstopwords)-> by right clicking -> run as -> java application. 
+7) Click Refresh 
+8) The output for the lucene with stopping run can be found under the LuceneOutput_stopping directory.
+
