@@ -43,12 +43,14 @@ public class BM25 {
 	private Map<Integer, Double> bm25Scores;
 	final static Logger logger = LoggerFactory.getLogger(BM25.class);
 	private String outputFolderName;
+	private boolean stem;
+	private boolean stop;
 
 	private IO_Operations io;
 	private HashMap<Integer, ArrayList<String>> relevanceJudgements = new HashMap<Integer, ArrayList<String>>(); 
 
 
-	BM25(String outputFolderName) {
+	BM25(String outputFolderName, boolean stop, boolean stem) {
 		k1 = 1.2;
 		b = 0.75;
 		k2 = 100;
@@ -60,11 +62,14 @@ public class BM25 {
 		bm25Scores = new HashMap<Integer, Double>();
 		this.outputFolderName = outputFolderName;
 		io = new IO_Operations();
+		this.stop = stop;
+		this.stem = stem;
 
 	}
 
 	public void rankDocuments(String query) {
-		readRelevantJudgements();
+		if(!stem)
+			readRelevantJudgements();
 		readAllFilesInHashMaps();
 		calculateAVDL();
 		calculateBM25PageRanksForQuery(query);
@@ -126,7 +131,7 @@ public class BM25 {
 			count++;
 		}
 		// Do stemming
-		if( Constants.USE_STEMMING ) {
+		if(stem) {
 			ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(temp));
 			StemmerFilter filter = new StemmerFilter();
 			tokens = filter.getFilteredTokens(tokens);
@@ -146,14 +151,15 @@ public class BM25 {
 			int ri = 0;
 			int R = 0;
 
-			ArrayList<String> relevantDocs = relevanceJudgements.get(queryNumber);
+			if(!stem){
+				ArrayList<String> relevantDocs = relevanceJudgements.get(queryNumber);
 
-			if(relevantDocs!=null){
-				R = relevantDocs.size();
+				if(relevantDocs!=null){
+					R = relevantDocs.size();
+				}
+
+				ri = calculateRi(term, relevantDocs);
 			}
-
-			ri = calculateRi(term, relevantDocs);
-
 			for (Index index : termInvertedIndex) {
 				//logger.info("Processing doc: "
 				//	+ hasCodeDocIds.get(index.getDocId()));
@@ -164,7 +170,7 @@ public class BM25 {
 			}
 		}
 	}
-	
+
 	private int calculateRi(String term, ArrayList<String> relevantDocs) {
 		// TODO Auto-generated method stub
 		int ri = 0;
@@ -182,7 +188,7 @@ public class BM25 {
 		System.out.println(term + " " + ri);
 		return ri;
 	}
-	
+
 	private void populatebm25Scores(int docId, double score) {
 		if (bm25Scores.containsKey(docId)) {
 			bm25Scores.put(docId, bm25Scores.get(docId) + score);

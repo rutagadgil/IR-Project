@@ -2,6 +2,7 @@ package neu.informationretrieval.project.indexer;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -55,6 +57,9 @@ public class InvertedIndexGenerator {
 	
 	private Set<String> stopList;
 	private Set<String> standardStopWordList_25;
+	
+	private boolean stop;
+	private boolean stem;
 
 	public InvertedIndexGenerator() {
 		invertedIndexOneGram = new HashMap<String, List<Index>>();
@@ -84,6 +89,23 @@ public class InvertedIndexGenerator {
 		stopList = new HashSet<String>();
 
 		resultPath = "IndexerOutput/";
+		
+		FileInputStream in;
+		try {
+			in = new FileInputStream("config.properties");
+			Properties props = new Properties();
+			props.load(in);
+			in.close();
+			stop = Boolean.parseBoolean(props.getProperty("stopping"));
+			stem = Boolean.parseBoolean(props.getProperty("stemming"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	public void generateCorpusStopList(){
@@ -374,12 +396,12 @@ public class InvertedIndexGenerator {
 		
 		if (n == 1) {
 			words = text.split(" ");
-			if(Constants.USE_STOPWORDS){
+			if(stop){
 				words = removeStopwords(words);
 			}
 		} else if (n == 2) {
 			String temp[] = text.split(" ");
-			if(Constants.USE_STOPWORDS){
+			if(stop){
 				temp = removeStopwords(temp);
 			}
 			List<String> bigrams = new ArrayList<String>();
@@ -390,7 +412,7 @@ public class InvertedIndexGenerator {
 			words = bigrams.toArray(new String[0]);
 		} else if (n == 3) {
 			String temp[] = text.split(" ");
-			if(Constants.USE_STOPWORDS){
+			if(stop){
 				temp = removeStopwords(words);
 			}
 			List<String> trigrams = new ArrayList<String>();

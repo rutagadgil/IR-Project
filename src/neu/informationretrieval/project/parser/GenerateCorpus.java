@@ -1,8 +1,11 @@
 package neu.informationretrieval.project.parser;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -32,9 +35,11 @@ public class GenerateCorpus {
 	File corpusFolderPath;
 	String outputFolderPath;
 
+
 	/**
 	 * Initializes the folder paths for source 
 	 * and destination. Both path exist in the project.
+	 * @throws IOException 
 	 */
 	GenerateCorpus() {
 		corpusFolderPath = new File("cacm");
