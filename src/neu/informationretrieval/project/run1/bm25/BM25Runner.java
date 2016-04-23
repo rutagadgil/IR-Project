@@ -22,6 +22,7 @@ public class BM25Runner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println("In BM25Runner");
 		try {
 
 			FileInputStream in = new FileInputStream("config.properties");
@@ -36,20 +37,23 @@ public class BM25Runner {
 			String outputFolderPath = null;
 			String fileName = null;
 			boolean stop = Boolean.parseBoolean(props.getProperty("stopping"));
+			System.out.println(stop);
 			boolean stem = Boolean.parseBoolean(props.getProperty("stemming"));
+			System.out.println(stem);
 			
 			if(stem){
 				StemmedQueryParser qp = new StemmedQueryParser();
 				qp.parseQueries(cacmQuery);
 			}else{
 				QueryParser queryParser = new QueryParser();
-				queryParser.parseQueries("QueriesInput/queries.txt");
+				queryParser.parseQueries("QueriesInput/cacm.query");
 			}
 
 			if (args.length == 0) {
 				outputFolderPath = "Run1Output/";
 				fileName = "QueriesInput/queries.txt";
 			} else {
+				System.out.println("In else");
 				outputFolderPath = args[0];
 				fileName = args[1];
 			}

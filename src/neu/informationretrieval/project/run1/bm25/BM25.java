@@ -68,6 +68,7 @@ public class BM25 {
 	}
 
 	public void rankDocuments(String query) {
+		System.out.println("In rank docs");
 		if(!stem)
 			readRelevantJudgements();
 		readAllFilesInHashMaps();
@@ -117,6 +118,7 @@ public class BM25 {
 		for (int i = 0; i < queryWords.length; i++) {
 			calculateBM25ScorePerTerm(queryNumber, queryWords[i]);
 		}
+		//System.out.println(bm25Scores.size());
 		queryFrequency.clear();
 		bm25Scores = sortByValue(bm25Scores);
 		printbm25Scores(queryNumber, queryWords);
@@ -185,7 +187,7 @@ public class BM25 {
 				}
 			}
 		}
-		System.out.println(term + " " + ri);
+		//System.out.println(term + " " + ri);
 		return ri;
 	}
 

@@ -47,7 +47,7 @@ public class BM25WithStoppingRunner {
 			e.printStackTrace();
 		}
 		
-		String[] arg = {"Run6Output", "QueriesInput/cacm.query"};
+		String[] arg = {"Run6Output/", "QueriesInput/queries.txt"};
 		BM25Runner.main(arg);
 		
 		FileInputStream in1 = new FileInputStream("config.properties");
