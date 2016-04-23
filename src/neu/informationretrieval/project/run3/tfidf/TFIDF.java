@@ -55,7 +55,7 @@ public class TFIDF implements RankingFunction {
 	
 	@Override
 	public String getName() {
-		return "TFIDF_engine";
+		return "Run3Output";
 	}
 	
 	private InvertedIndex invertedIndex;

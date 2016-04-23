@@ -45,12 +45,14 @@ public class BM25 {
 	private String outputFolderName;
 	private boolean stem;
 	private boolean stop;
+	private String runTitle;
 
 	private IO_Operations io;
 	private HashMap<Integer, ArrayList<String>> relevanceJudgements = new HashMap<Integer, ArrayList<String>>(); 
 
 
 	BM25(String outputFolderName, boolean stop, boolean stem) {
+		runTitle = "BM25Run";
 		k1 = 1.2;
 		b = 0.75;
 		k2 = 100;
@@ -64,6 +66,12 @@ public class BM25 {
 		io = new IO_Operations();
 		this.stop = stop;
 		this.stem = stem;
+		if(stop){
+			runTitle = "BM25_Stopping_Run";
+		}
+		if(stem){
+			runTitle = "BM25_Stemming_Run";
+		}
 
 	}
 
@@ -247,7 +255,7 @@ public class BM25 {
 				stringBuilder.append("Q0 ");
 				stringBuilder.append(hasCodeDocIds.get(entry.getKey()) + " ");
 				stringBuilder.append((count + 1) + " ");
-				stringBuilder.append(entry.getValue() + " " + "BM25Run");
+				stringBuilder.append(entry.getValue() + " " + runTitle);
 				writer.println(stringBuilder);
 				count++;
 				if (count == 100) {

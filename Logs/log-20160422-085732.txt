@@ -1,9 +1,0 @@
-08:57:32.488 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator tokenize
-08:57:32.494 [main] INFO  e.s.nlp.pipeline.TokenizerAnnotator - TokenizerAnnotator: No tokenizer type provided. Defaulting to PTBTokenizer.
-08:57:32.503 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator ssplit
-08:57:32.506 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator pos
-08:57:33.719 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator lemma
-08:57:33.793 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator tokenize
-08:57:33.793 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator ssplit
-08:57:33.793 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator pos
-08:57:33.794 [main] INFO  e.s.nlp.pipeline.StanfordCoreNLP - Adding annotator lemma

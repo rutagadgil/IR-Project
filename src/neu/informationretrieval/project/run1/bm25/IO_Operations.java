@@ -41,7 +41,7 @@ public class IO_Operations {
 		
 		try{
 			File file = new File(path + filename + ".txt");
-			System.out.println(file.getName());
+			System.out.println("Writing to file: " + file.getName());
 			fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
 			bw.write(content);
@@ -57,7 +57,7 @@ public class IO_Operations {
 		
 		try{
 			File file = new File(path + filename + ".txt");
-			System.out.println(file.getName());
+			System.out.println("Appending to file: " + file.getName());
 			fw = new FileWriter(file, true);
 			bw = new BufferedWriter(fw);
 			bw.write(content);

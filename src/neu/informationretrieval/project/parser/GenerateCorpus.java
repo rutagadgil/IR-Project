@@ -34,6 +34,8 @@ public class GenerateCorpus {
 
 	File corpusFolderPath;
 	String outputFolderPath;
+	private boolean stop;
+	private boolean stem;
 
 
 	/**
